@@ -16,6 +16,8 @@ async function dropTables() {
 
         // have to make sure to drop in correct order
         await client.query(`
+        DROP TABLE IF EXISTS post_tags;
+        DROP TABLE IF EXISTS tags;
         DROP TABLE IF EXISTS posts;
         DROP TABLE IF EXISTS users;
       `);
@@ -156,7 +158,7 @@ async function testDB() {
         console.log("Result:", updatePostResult);
 
         console.log("Calling getUserById with 1");
-        const albert = await getUserById(1);
+        const falon = await getUserById(1);
         console.log("Result:", falon);
 
         console.log("Finished database tests!");
@@ -165,7 +167,6 @@ async function testDB() {
         throw error;
     }
 }
-
 
 rebuildDB()
     .then(testDB)
