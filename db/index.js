@@ -4,6 +4,15 @@ const { Client } = require('pg')
 //SUPPLIES THE DB NAME AND LOCATION OF THE DATABASE
 const client = new Client('postgres://localhost:5432/juicebox-dev');
 
+//STARTS SERVER
+const PORT = 3000;
+const express = require('express');
+const server = express();
+
+server.listen(PORT, () => {
+    console.log('The server is up on port', PORT)
+});
+
 //CREATES NEW USER ADDS TO ROWS THE USERNAME, PASSWORD, NAME, LOCATION & VALUES
 async function createUser({
     username,
