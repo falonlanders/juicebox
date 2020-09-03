@@ -1,4 +1,19 @@
-const { client, getUsers, createUser, updateUser, getPosts, createPost, updatePost, getPostsByUser, getUserById, createPostTag, addTagsToPost, getPostById, getPostsByTagName } = require('./index');
+const {
+    client,
+    createUser,
+    updateUser,
+    getAllUsers,
+    getUserById,
+    createPost,
+    updatePost,
+    getAllPosts,
+    getPostById,
+    addTagsToPost,
+    createTags,
+    createPostTag,
+    getPostsByTagName,
+    getPostsByUser
+} = require('./index');
 
 async function dropTables() {
     try {
@@ -175,6 +190,26 @@ async function testDB() {
     }
 }
 
+async function createInitialTags() {
+    try {
+        console.log("starting to create tags..")
+        const [happy, angry, sad, joyful] = await createTags([
+            '#happy',
+            '#worst-day-ever',
+            '#youcandoanything',
+            '#yayayayay'
+        ]);
+        const [one, two, three] = await getAllPosts();
+
+        await addTagsToPost(one.id, [happy, angry]);
+        await addTagsToPost(two.id, [sad, angry]);
+        await addTagsToPost(three.id, [happy, joyful, sad]);
+        console.log("finished creating tags")
+    } catch (error) {
+        console.log("error creating tags..")
+        throw error
+    }
+}
 
 
 
